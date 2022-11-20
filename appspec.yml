@@ -40,19 +40,11 @@ files:
     - source: /
       destination: /opt/bitnami/wordpress
 permissions:
-    - object: /opt/bitnami/wordpress
-      pattern: "**"
-      owner: www-data
-      group: www-data
-      mode: 755
-      type:
-        - file
+  - object: /
+    pattern: "**"
+    owner: bitnami
+    group: daemon
+    mode: 755
 hooks:
-    BeforeInstall:
-     - location: scripts/installapache.sh
-       runas: root
-     - location: scripts/startapache.sh
-       runas: root
-    AfterInstall:
-     - location: scripts/restartapache.sh
-       runas: root
+  ApplicationStart:
+    - location: /deploy/applicationstart.sh
